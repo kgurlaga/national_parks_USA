@@ -1,0 +1,125 @@
+
+body
+{
+	margin: 0;
+	background-color: #034258;
+}
+.container
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	text-align: center;
+	margin-bottom: 2px;
+}
+#map
+{
+	height: 700px;
+	width: 575px;
+}
+header
+{
+	font-size: 44px;
+	font-weight: 700;
+	color: #aaa;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	margin-bottom: 5px;
+	font-family: 'Lato', sans-serif;
+	text-shadow: 1px 1px 2px #041014;
+	cursor: default;
+}
+#wstep
+{
+	font-size: 18px;
+	font-weight: 700;
+	color: #777;
+	text-align: center;
+	letter-spacing: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-family: 'Lato', sans-serif;
+	text-shadow: 1px 1px 2px #041014;
+	cursor: default;
+}
+#list
+{
+	padding-top: 1px;
+	float: left;
+	height: auto;
+	width: 400px;
+	text-align: center;
+	font-size: 18px;
+	color: #655;
+	border-right: 2px solid #777;
+	font-family: 'Lato', sans-serif;
+	cursor: default;
+	height: 700px;
+}
+aside
+{
+	float: right;
+	text-align: right;
+}
+footer
+{
+	clear: both;
+	text-align: center;
+	padding: 5px;
+	color: #777;
+	font-size: 20px;
+	font-weight: 700;
+}
+article
+{
+	text-align: center;
+	float: left;
+	width: 190px;
+}
+.title
+{
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+}
+.button
+{
+	font-weight: 700;
+	color: #2596be;
+	border: none;
+	background-color: inherit;
+	font-size: 13px;
+	font-family: 'Lato', sans-serif;
+}
+.button:hover
+{
+	color: #2596be;
+	cursor: pointer;
+	background-color: #85d1e9;
+}
+img
+{
+	transition: all 0.2s ease-in-out;
+}
+img:hover
+{
+	transform: scale(0.9);	
+}
+#reset
+{
+	font-weight: 700;
+	color: white;
+	border: none;
+	background-color: gray;
+	font-size: 13px;
+	font-family: 'Lato', sans-serif;
+	cursor: pointer;
+}
+.info {
+    padding: 6px;
+	text-align: center;
+    background-color: #85d1e9;
+    border-radius: 5px;
+	font-size: 15px;
+	font-family: 'Lato', sans-serif;
+}

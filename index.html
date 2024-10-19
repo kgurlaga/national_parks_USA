@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<title>Parki Narodowe USA</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<link rel="stylesheet" href="style.css">	
+</head>
+<body>
+<div class="container">
+<header>
+<h4>Parki narodowe USA</h4>
+</header>
+<main>
+	<div id="wstep">
+		Mapa została stworzona za pomocą Leaflet. Dane o parkach narodowych zostały pozyskane z www.naturalearthdata.com. Aby przybliżyć lokalizację wybranego parku wystarczy kliknać na jego nazwę. Aby przejść do oficjalnej strony Parku Narodowego, wystarczy kliknąć na zdjęcie. Po najechaniu na park narodowy na mapie zostaną wyświetlone podstawowe informacje na temat roku założenia, powierzchni w km<sup>2</sup> oraz liczba odwiedzających z 2013 roku.
+	</div>
+	<section>
+	<div id="list">
+		<article>
+		<div class="title"><button class="button" onClick = "setview(smokey)">Great Smoky Mountains NP</button>
+		</div>
+		<a href="https://www.nps.gov/grsm/index.htm" target="_blank"><img src="img/smokey.jpg"width="180" height="200"></a>
+		</article>
+		<article>
+		<div class="title"><button class = "button" onClick = "setview(yosemite)">Yosemite NP</button></div>
+		<a href="https://www.nps.gov/yose/index.htm" target="_blank"><img src="img/yosemite.jpg"width="180" height="200"></a>
+		</article>
+		<article>
+		<div class="title"><button class = "button" onClick = "setview(yellowstone)">Yellowstone NP</button></div>
+		<a href="https://www.nps.gov/yell/index.htm" target="_blank"><img src="img/yellowstone.jpg" width="180" height="200"></a>
+		</article>
+		<article>
+		<div class="title"><button class = "button" onClick = "setview(olympic)">Olympic NP</button></div>
+		<a href="https://www.nps.gov/olym/index.htm" target="_blank"><img src="img/olympic.jpg" width="180" height="200"></a>
+		</article>
+		<article>
+		<div class="title"><button class = "button" onClick = "setview(canyon)">Grand Canyon NP</button></div>
+		<a href="https://www.nps.gov/grca/index.htm" target="_blank"><img src="img/grand.jpg" width="180" height="200"></a>
+		</article>
+		<article>
+		<div class="title"><button class = "button" onClick = "setview(death)">Death Valley NP</button></div>
+		<a href="https://www.nps.gov/deva/index.htm" target="_blank"><img src="img/death.jpg" width="180" height="200"></a>
+		</article>
+	</div>
+	</section>
+</main>
+<aside>
+	<button id="reset">Reset View</button>
+	<div id="map">
+	</div>
+</aside>
+<footer>
+<p>Witryna została wykonana przez Kamil Gurlaga na zajęcia z kartografii internetowej. Wszelkie prawa zastrzeżone!</p>
+</footer>
+<script type="text/javascript" src="national_parks.js"></script>
+<script type="text/javascript" src="stany.js"></script>
+<script>
+const smokey = [35.6, -83.516667];
+const yosemite = [37.7425, -119.5375];
+const yellowstone = [44.596389, -110.547222];
+const olympic = [47.96935, -123.49856];
+const canyon = [36.055261, -112.121836];
+const death = [36.241944, -116.825833];
+
+var resetview = document.querySelector('#reset');
+resetview.addEventListener('click', function() {
+	map.flyTo([37.8, -96], 2.5);
+});
+
+var map = L.map('map').setView([37.8, -96], 2.5);
+var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/dark-v8',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(map);
+function setview(att) {
+	map.flyTo(att,8);
+}
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = (props ?
+			'<b>Nazwa: </b>' + props.UNIT_NAME +
+			'<br/><b>Rok założenia: </b>' + props.Rok + '<br /><b>Powierzchnia:</b> ' + props.pow + 'km<sup>2</sup><br/><b>Liczba odwiedzających:</b> ' + props.liczba_odw : '');
+	};
+
+	info.addTo(map);
+
+
+function style(feature) {
+    return {
+        fillColor: 'green',
+        weight: 2,
+        opacity: 1,
+        color: 'green',
+        dashArray: '0.2',
+        fillOpacity: 0.3
+    };
+}
+function style2(feature) {
+    return {
+        weight: 1.7,
+        opacity: 0.2,
+        color: 'white',
+        dashArray: '0.2',
+        fillOpacity: 0.0
+    };
+}
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 1,
+        color: 'white',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+	info.update(layer.feature.properties);
+}
+
+var geojson;
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+	info.update();
+}
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight
+    });
+}
+L.geoJson(states, {style: style2}).addTo(map);
+geojson = L.geoJson(national_parks, {style: style, onEachFeature: onEachFeature}).addTo(map);
+
+
+</script>
+</div>
+</body>
+</html>
